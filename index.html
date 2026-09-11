@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#007853" />
+    <meta name="description" content="Customer-facing Tenzo café matcha proposals." />
+    <title>Tenzo | Café Matcha Guides</title>
+    <style>
+      :root {
+        --tenzo-green: #007853;
+        --core-green: #006548;
+        --black-matcha: #163029;
+        --mist: #f3f7f4;
+        --white: #ffffff;
+        --line: rgba(22, 48, 41, 0.14);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { background: var(--mist); }
+
+      body {
+        min-width: 320px;
+        margin: 0;
+        color: var(--black-matcha);
+        background:
+          radial-gradient(circle at 85% 3%, rgba(0, 120, 83, 0.14), transparent 25rem),
+          var(--mist);
+        font-family: Montserrat, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        min-height: 92px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar img {
+        display: block;
+        width: min(218px, 56vw);
+        height: auto;
+      }
+
+      main { padding: 72px 0 56px; }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--tenzo-green);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 800px;
+        margin: 0;
+        font-size: clamp(2.4rem, 6vw, 5.6rem);
+        line-height: 0.95;
+        letter-spacing: -0.06em;
+      }
+
+      .intro {
+        max-width: 620px;
+        margin: 22px 0 48px;
+        font-size: clamp(1rem, 1.8vw, 1.22rem);
+        line-height: 1.65;
+      }
+
+      .guides {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .guide {
+        display: flex;
+        min-height: 220px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 28px;
+        color: inherit;
+        text-decoration: none;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: 0 10px 34px rgba(22, 48, 41, 0.06);
+        transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+      }
+
+      .guide:hover,
+      .guide:focus-visible {
+        border-color: rgba(0, 120, 83, 0.5);
+        box-shadow: 0 16px 38px rgba(22, 48, 41, 0.12);
+        outline: none;
+        transform: translateY(-3px);
+      }
+
+      .guide:focus-visible { outline: 3px solid #70c1a0; outline-offset: 3px; }
+
+      .guide__label {
+        margin: 0 0 8px;
+        color: var(--tenzo-green);
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .guide h2 {
+        margin: 0;
+        font-size: clamp(1.38rem, 3vw, 2.1rem);
+        letter-spacing: -0.045em;
+      }
+
+      .guide__text {
+        max-width: 30rem;
+        margin: 13px 0 24px;
+        font-size: 0.94rem;
+        line-height: 1.55;
+      }
+
+      .guide__cta {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        padding: 10px 15px;
+        color: var(--white);
+        background: var(--tenzo-green);
+        border-radius: 999px;
+        font-size: 0.86rem;
+        font-weight: 800;
+      }
+
+      footer {
+        padding: 24px 0 42px;
+        color: rgba(22, 48, 41, 0.7);
+        border-top: 1px solid var(--line);
+        font-size: 0.84rem;
+      }
+
+      @media (max-width: 680px) {
+        .shell { width: min(100% - 28px, 1120px); }
+        .topbar { min-height: 76px; }
+        main { padding: 48px 0 34px; }
+        .intro { margin-bottom: 30px; }
+        .guides { grid-template-columns: 1fr; gap: 13px; }
+        .guide { min-height: 0; padding: 23px; border-radius: 16px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .guide { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <img src="./assets/tenzo-logo.png" alt="Tenzo" />
+    </header>
+    <main class="shell">
+      <p class="eyebrow">Café Matcha Guides</p>
+      <h1>Find the right matcha moment for your menu.</h1>
+      <p class="intro">Explore customer-facing Tenzo guides built around each café’s menu opportunity, blend fit, and projected cup economics.</p>
+
+      <section class="guides" aria-label="Tenzo café matcha guides">
+        <a class="guide" href="./tenzo-proposal/">
+          <div>
+            <p class="guide__label">Core guide</p>
+            <h2>Tenzo Café Matcha Guide</h2>
+            <p class="guide__text">A flexible starting point for exploring blends, formats, and finished-cup margins.</p>
+          </div>
+          <span class="guide__cta">Open guide&nbsp; →</span>
+        </a>
+        <a class="guide" href="./summer-moon/">
+          <div>
+            <p class="guide__label">Tailored proposal</p>
+            <h2>Summer Moon Coffee</h2>
+            <p class="guide__text">A menu-minded Tenzo proposal built for a warm, handcrafted coffee experience.</p>
+          </div>
+          <span class="guide__cta">Open guide&nbsp; →</span>
+        </a>
+        <a class="guide" href="./brevity/">
+          <div>
+            <p class="guide__label">Tailored proposal</p>
+            <h2>Brevity Coffee</h2>
+            <p class="guide__text">A quick-service matcha guide tailored to drive-thru energy and seasonal-menu potential.</p>
+          </div>
+          <span class="guide__cta">Open guide&nbsp; →</span>
+        </a>
+        <a class="guide" href="./juiceland/">
+          <div>
+            <p class="guide__label">Tailored proposal</p>
+            <h2>JuiceLand</h2>
+            <p class="guide__text">A fresh, wellness-forward Tenzo guide designed for made-to-order menu exploration.</p>
+          </div>
+          <span class="guide__cta">Open guide&nbsp; →</span>
+        </a>
+      </section>
+    </main>
+    <footer class="shell">© Tenzo. Better Every Day.</footer>
+  </body>
+</html>
