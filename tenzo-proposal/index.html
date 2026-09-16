@@ -523,8 +523,20 @@
                 <label for="monthlyDrinks">Matcha drinks / month</label>
                 <div class="input-wrap"><input id="monthlyDrinks" inputmode="numeric" min="0" value="120" type="number" step="1"></div>
               </div>
+              <div class="field">
+                <label for="currentBagCost">Current product bag cost</label>
+                <div class="input-wrap"><span class="input-prefix">$</span><input class="has-prefix" id="currentBagCost" inputmode="decimal" min="0" placeholder="Enter" type="number" step="0.01"></div>
+              </div>
+              <div class="field">
+                <label for="currentBagGrams">Current product grams / bag</label>
+                <div class="input-wrap"><input class="has-suffix" id="currentBagGrams" inputmode="decimal" min="0" placeholder="Enter" type="number" step="1"><span class="input-suffix">g</span></div>
+              </div>
+              <div class="field">
+                <label for="currentGramsPerCup">Current product grams / cup</label>
+                <div class="input-wrap"><input class="has-suffix" id="currentGramsPerCup" inputmode="decimal" min="0" placeholder="Enter" type="number" step="0.1"><span class="input-suffix">g</span></div>
+              </div>
             </div>
-            <p class="calc-note">Use your exact wholesale quote and recipe. Grams per cup calculates Tenzo cost; add milk, syrup, cup, lid, and other per-cup costs to see finished COGS and a projected margin.</p>
+            <p class="calc-note">Enter your exact Tenzo quote and recipe first. To compare, add the current product’s bag cost, bag size, and grams per cup. Savings reflects matcha product cost only; finished COGS and margin continue to use your Tenzo inputs.</p>
             <button class="calc-button" type="submit">Calculate my cup economics</button>
           </form>
         </section>
@@ -645,7 +657,7 @@
       }));
 
       const calculatorForm = document.getElementById("calculatorForm");
-      const fields = ["bagCost", "bagGrams", "otherCogsPerCup", "gramsPerCup", "menuPrice", "monthlyDrinks"].map(id => document.getElementById(id));
+      const fields = ["bagCost", "bagGrams", "otherCogsPerCup", "gramsPerCup", "menuPrice", "monthlyDrinks", "currentBagCost", "currentBagGrams", "currentGramsPerCup"].map(id => document.getElementById(id));
       const results = document.getElementById("results");
       const money = value => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
       const percentage = value => new Intl.NumberFormat("en-US", { style: "percent", maximumFractionDigits: 1 }).format(value);
@@ -663,6 +675,9 @@
         const gramsPerCup = numeric("gramsPerCup");
         const menuPrice = numeric("menuPrice");
         const monthlyDrinks = numeric("monthlyDrinks");
+        const currentBagCost = numeric("currentBagCost");
+        const currentBagGrams = numeric("currentBagGrams");
+        const currentGramsPerCup = numeric("currentGramsPerCup");
         if (!bagCost || !bagGrams || !gramsPerCup || !menuPrice) {
           results.innerHTML = '<p class="empty">Add your bag cost, grams per cup, and menu price to map the cost of each cup.</p>';
           return;
@@ -673,6 +688,17 @@
         const grossProfit = menuPrice - finishedCogs;
         const margin = grossProfit / menuPrice;
         const monthlyContribution = grossProfit * monthlyDrinks;
+        let comparisonRows = '<p class="empty comparison-note">Add the three current-product inputs to see a side-by-side savings comparison.</p>';
+        if (currentBagCost && currentBagGrams && currentGramsPerCup) {
+          const currentCost = currentBagCost / (currentBagGrams / currentGramsPerCup);
+          const savingsPerCup = currentCost - tenzoCost;
+          const monthlySavings = savingsPerCup * monthlyDrinks;
+          const savingsLabel = savingsPerCup >= 0 ? "Potential savings / cup" : "Difference / cup";
+          const monthlyLabel = savingsPerCup >= 0 ? "Potential monthly savings*" : "Monthly difference*";
+          comparisonRows = '<div class="result-row"><span>Current product cost / cup</span><strong>' + money(currentCost) + '</strong></div>' +
+            '<div class="result-row"><span>' + savingsLabel + '</span><strong>' + money(savingsPerCup) + '</strong></div>' +
+            '<div class="result-row"><span>' + monthlyLabel + '</span><strong>' + money(monthlySavings) + '</strong></div>';
+        }
         results.innerHTML = `
           <div class="result-row"><span>Tenzo grams / cup</span><strong>${gramsPerCup.toFixed(1)}g</strong></div>
           <div class="result-row"><span>Tenzo cost / cup</span><strong>${money(tenzoCost)}</strong></div>
@@ -682,6 +708,7 @@
           <div class="result-row"><span>Projected gross margin*</span><strong>${percentage(margin)}</strong></div>
           <div class="result-row"><span>Monthly projected gross profit*</span><strong>${money(monthlyContribution)}</strong></div>
           <div class="result-row"><span>Cups / bag</span><strong>${whole(cups)}</strong></div>
+          ${comparisonRows}
         `;
       }
       fields.forEach(field => {
