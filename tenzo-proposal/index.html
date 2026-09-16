@@ -321,7 +321,10 @@
     .result-panel { padding: 27px 28px; color: var(--white); background: var(--core-green); }
     .result-panel .section-kicker { color: var(--sweet-green); }
     .result-panel h2 { margin-bottom: 17px; font-size: 1.4rem; }
-    .result-list { display: grid; gap: 10px; }
+    .result-list { display: grid; gap: 12px; }
+    .result-group { padding: 12px; border: 1px solid rgba(255,255,255,.22); border-radius: 12px; background: rgba(0,0,0,.09); }
+    .result-group--comparison { border-color: rgba(144,213,172,.6); background: rgba(0,0,0,.16); }
+    .result-group-title { margin: 0 0 8px; color: var(--sweet-green); font-size: .68rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
     .result-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 9px; border-bottom: 1px solid rgba(255,255,255,.14); }
     .result-row:last-child { border-bottom: 0; padding-bottom: 0; }
     .result-row span { color: #d9f2e2; font-size: .74rem; font-weight: 700; }
@@ -713,19 +716,26 @@
           const monthlySavings = savingsPerCup * monthlyDrinks;
           const savingsLabel = savingsPerCup >= 0 ? "Potential savings / cup" : "Difference / cup";
           const monthlyLabel = savingsPerCup >= 0 ? "Potential monthly savings*" : "Monthly difference*";
-          comparisonRows = '<div class="result-row"><span>Current product cost / cup</span><strong>' + money(currentCost) + '</strong></div>' +
+          comparisonRows = '<div class="result-group result-group--comparison"><p class="result-group-title">Current product comparison</p>' +
+            '<div class="result-row"><span>Current product cost / cup</span><strong>' + money(currentCost) + '</strong></div>' +
             '<div class="result-row"><span>' + savingsLabel + '</span><strong>' + money(savingsPerCup) + '</strong></div>' +
-            '<div class="result-row"><span>' + monthlyLabel + '</span><strong>' + money(monthlySavings) + '</strong></div>';
+            '<div class="result-row"><span>' + monthlyLabel + '</span><strong>' + money(monthlySavings) + '</strong></div></div>';
         }
         results.innerHTML = `
-          <div class="result-row"><span>Tenzo grams / cup</span><strong>${gramsPerCup.toFixed(1)}g</strong></div>
-          <div class="result-row"><span>Tenzo cost / cup</span><strong>${money(tenzoCost)}</strong></div>
-          <div class="result-row"><span>Other COGS / cup</span><strong>${money(otherCogsPerCup)}</strong></div>
-          <div class="result-row"><span>Finished COGS / cup</span><strong>${money(finishedCogs)}</strong></div>
-          <div class="result-row"><span>Projected gross profit / cup*</span><strong>${money(grossProfit)}</strong></div>
-          <div class="result-row"><span>Projected gross margin*</span><strong>${percentage(margin)}</strong></div>
-          <div class="result-row"><span>Monthly projected gross profit*</span><strong>${money(monthlyContribution)}</strong></div>
-          <div class="result-row"><span>Cups / bag</span><strong>${whole(cups)}</strong></div>
+          <div class="result-group">
+            <p class="result-group-title">Tenzo recipe</p>
+            <div class="result-row"><span>Tenzo grams / cup</span><strong>${gramsPerCup.toFixed(1)}g</strong></div>
+            <div class="result-row"><span>Tenzo cost / cup</span><strong>${money(tenzoCost)}</strong></div>
+            <div class="result-row"><span>Other COGS / cup</span><strong>${money(otherCogsPerCup)}</strong></div>
+            <div class="result-row"><span>Cups / bag</span><strong>${whole(cups)}</strong></div>
+          </div>
+          <div class="result-group">
+            <p class="result-group-title">Finished cup economics</p>
+            <div class="result-row"><span>Finished COGS / cup</span><strong>${money(finishedCogs)}</strong></div>
+            <div class="result-row"><span>Projected gross profit / cup*</span><strong>${money(grossProfit)}</strong></div>
+            <div class="result-row"><span>Projected gross margin*</span><strong>${percentage(margin)}</strong></div>
+            <div class="result-row"><span>Monthly projected gross profit*</span><strong>${money(monthlyContribution)}</strong></div>
+          </div>
           ${comparisonRows}
         `;
       }
