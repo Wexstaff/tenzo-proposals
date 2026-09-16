@@ -267,6 +267,20 @@
     .calculator { padding: 24px 28px 26px; }
     .calculator h2 { font-size: 1.42rem; }
     .calculator-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 9px; margin-top: 16px; }
+    .comparison-divider {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 8px 0 1px;
+      padding: 12px 14px;
+      border: 1px solid rgba(0, 120, 83, .2);
+      border-radius: 12px;
+      background: var(--whisked-milk);
+    }
+    .comparison-divider strong { font-family: var(--headline); font-size: .94rem; }
+    .comparison-divider span { color: var(--ink-muted); font-size: .78rem; text-align: right; }
     .field { min-width: 0; }
     .field label { display: block; min-height: 31px; margin-bottom: 5px; color: var(--ink-muted); font-size: .69rem; font-weight: 800; line-height: 1.13; }
     .input-wrap { position: relative; }
@@ -522,6 +536,10 @@
               <div class="field">
                 <label for="monthlyDrinks">Matcha drinks / month</label>
                 <div class="input-wrap"><input id="monthlyDrinks" inputmode="numeric" min="0" value="120" type="number" step="1"></div>
+              </div>
+              <div class="comparison-divider">
+                <strong>Compare your current product</strong>
+                <span>Use the same finished-cup serving to see true product-cost savings.</span>
               </div>
               <div class="field">
                 <label for="currentBagCost">Current product bag cost</label>
